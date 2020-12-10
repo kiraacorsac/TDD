@@ -31,10 +31,20 @@ class Camera(AlertCreator):
         self.night_mode = False
 
 
+   # def detect_movement(self, what, where, datetime):
+     #   currentHour = (datetime.hour)
+     #   if 6 <= currentHour <= 22:
+     #     self.create_alert(where, what, 2)
+     #   else:
+     #     self.night_mode = True
+     #     self.create_alert(where, what, 3)
+
     def detect_movement(self, what, where, datetime):
         currentHour = (datetime.hour)
-        if 6 <= currentHour <= 22:
-          self.create_alert(where, what, 2)
+        if self.night_mode is True:
+          if 6 <= currentHour <= 22:
+            print ("standing by")
+          else:
+            self.create_alert(where, what, 3)
         else:
-          self.night_mode = True
-          self.create_alert(where, what, 3)
+          self.create_alert(where, what, 2)
