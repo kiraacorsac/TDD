@@ -43,3 +43,6 @@ class SecuritySystemTest(unittest.TestCase):
   def test_registerCreator_integer_raisesTypeError(self):
     with self.assertRaises(TypeError):
       self.security.registerCreator(5)
+
+  def test_git():
+    pass
