@@ -1,4 +1,5 @@
 from AlertCreators.alert_creator import AlertCreator
+import datetime
 
 class Camera(AlertCreator):
     '''
@@ -31,4 +32,9 @@ class Camera(AlertCreator):
 
 
     def detect_movement(self, what, where, datetime):
-        self.create_alert(where, what, 2)
+        currentHour = (datetime.hour)
+        if 6 <= currentHour <= 22:
+          self.create_alert(where, what, 2)
+        else:
+          self.night_mode = True
+          self.create_alert(where, what, 3)
