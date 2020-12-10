@@ -36,6 +36,20 @@ class CameraTest(unittest.TestCase):
         self.connectedCamera.detect_movement("human", "outside", datetime(2020, 11, 26, 13, 20))
         create_alert_mock.assert_called_once_with("outside", "human", 2)
 
+    @patch.object(Camera, 'create_alert')
+    def test_createAlert_nightmode_systemCreateAlert(self, create_alert_mock):
+        self.connectedCamera.nightmode("outside", "human", 2)
+        create_alert_mock.assert_called_once()
+
+    @patch.object(Camera, 'create_alert')
+    def test_createAlert_nightmodeIsTrue_create_alert(self, create_alert_mock):
+        self.connectedCamera.detect_movement("outside", "human", "11:00 PM")
+        create_alert_mock.assert_called_once()
+
+    @patch.object(Camera, 'create_alert')
+    def test_createAlert_nightmodeIsFalse_create_alertNotCalled(self, create_alert_mock):
+        self.connectedCamera.detect_movement("outside", "human", "08:00 AM")
+        create_alert_mock.assert_not_called()
 
     def test_detectMovement_nightTimeNightMode_createsAlert(self):
         pass

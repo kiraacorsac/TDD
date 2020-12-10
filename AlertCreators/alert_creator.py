@@ -21,5 +21,8 @@ class AlertCreator:
         else:
             return False
 
-    def create_alert(self, where, what, level):
-        self.security_system.createAlert(where, what, level)
+  def create_alert(self, where, what, level):
+    if self.is_connected == True:
+      self.security_system.createAlert(where, what, level)
+    else:
+      raise Exception("Camera is not connected")

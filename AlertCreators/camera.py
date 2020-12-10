@@ -1,5 +1,6 @@
 from AlertCreators.alert_creator import AlertCreator
 
+
 class Camera(AlertCreator):
     '''
     name: String
@@ -29,6 +30,28 @@ class Camera(AlertCreator):
         self.where = where
         self.night_mode = False
 
+    def where_pointed(self, where):
+      if self.where != where:
+        self.create_alert()
+      else:
+        raise Exception("Camera pointed to unknown place")
 
-    def detect_movement(self, what, where, datetime):
-        self.create_alert(where, what, 2)
+  def nightmode(self):
+    timeStart = "10:00 PM"
+    timeEnd = "06:00 AM"
+    now = datetime.now() 
+    timeEnd = datetime.strptime(timeEnd, "%I:%M%p")
+    timeStart = datetime.strptime(timeStart, "%I:%M%p")
+    now = datetime.strptime(now, "%I:%M%p")
+
+    if self.timeStart >= self.now <= self.timeEnd: 
+      return True
+    else:
+      return False
+
+
+  def detect_movement(self, where, what, level):
+    if self.is_connected and self.nightmode() == True and self.timeStart <= self.now >= self.timeEnd:
+      self.create_alert(where, what, 3)
+    elif self.is_connected and self.nightmode() == False and self.timeStart >= self.now <= self.timeEnd: 
+      self.create_alert()
