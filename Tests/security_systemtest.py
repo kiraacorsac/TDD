@@ -31,7 +31,7 @@ class SecuritySystemTest(unittest.TestCase):
 
   def test_registerCreator_camera_isInCreator(self):
     #setup
-    camera_mock = Mock()
+    camera_mock = Camera("Testcamera", ["outside"])
     
     #act
     self.security.registerCreator(camera_mock)
