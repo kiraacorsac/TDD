@@ -42,6 +42,7 @@ class Camera(AlertCreator):
     def detect_movement(self, what, where, datetime):
         if where not in self.possible_locations:
           raise Exception("Camera location unknown.")
+
           
         currentHour = (datetime.hour)
         if self.night_mode is True:
