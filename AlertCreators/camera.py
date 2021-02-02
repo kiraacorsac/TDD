@@ -1,11 +1,12 @@
 from AlertCreators.alert_creator import AlertCreator
 import datetime
 
+
 class Camera(AlertCreator):
-    '''
+    """
     name: String
     security_system: SecuritySystem
-      - securtiy system where the camera is registered 
+      - securtiy system where the camera is registered
 
     where: [String]
       - specifies where the camera could be pointnig
@@ -23,31 +24,30 @@ class Camera(AlertCreator):
 
 
     (recording)
-    '''
+    """
 
     def __init__(self, name, possible_locations):
         super().__init__(name)
         self.possible_locations = possible_locations
         self.night_mode = False
 
-
-   # def detect_movement(self, what, where, datetime):
-     #   currentHour = (datetime.hour)
-     #   if 6 <= currentHour <= 22:
-     #     self.create_alert(where, what, 2)
-     #   else:
-     #     self.night_mode = True
-     #     self.create_alert(where, what, 3)
+    # def detect_movement(self, what, where, datetime):
+    #   currentHour = (datetime.hour)
+    #   if 6 <= currentHour <= 22:
+    #     self.create_alert(where, what, 2)
+    #   else:
+    #     self.night_mode = True
+    #     self.create_alert(where, what, 3)
 
     def detect_movement(self, what, where, datetime):
         if where not in self.possible_locations:
-          raise Exception("Camera location unknown.")
-          
-        currentHour = (datetime.hour)
+            raise Exception("Camera location unknown.")
+
+        currentHour = datetime.hour
         if self.night_mode is True:
-          if 6 <= currentHour <= 22:
-            print ("standing by")
-          else:
-            self.create_alert(where, what, 3)
+            if 6 <= currentHour <= 22:
+                print("standing by")
+            else:
+                self.create_alert(where, what, 3)
         else:
-          self.create_alert(where, what, 2)
+            self.create_alert(where, what, 2)
