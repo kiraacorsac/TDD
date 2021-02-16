@@ -5,14 +5,14 @@ import re
 
 class NosyNeighbor(AlertCreator):
 
-    '''
-It's an AlertCreator
-It has a constructor __init__(name, bed_time, wake_up_time) . I believe the name  is self-explenatory, and the rest of the properties are explained later.
-It has a method check_suspicious_activity(where, what, time) that takes the parameters where , what, time. Once again, similar to detect_movement, this is an 'endpoint' for our simulation, so the where  and what  are just strings we are going to be passing manually, nothing more. 
-It has two properties bed_time and wake_up_time. Both of these properties are of type datetime.
-Calling check_suspicious_activity  with time  set to something wake_up_time  and bed_time results in creating level 3 alert, with the specified where  and what . Take a look in the camera implementation for inspiration.
-Calling check_suspicious_activity  with time  set to something  bed_time and wake_up_time  throws an exception saying 'Neighbor asleep'. 
-'''
+    """
+    It's an AlertCreator
+    It has a constructor __init__(name, bed_time, wake_up_time) . I believe the name  is self-explenatory, and the rest of the properties are explained later.
+    It has a method check_suspicious_activity(where, what, time) that takes the parameters where , what, time. Once again, similar to detect_movement, this is an 'endpoint' for our simulation, so the where  and what  are just strings we are going to be passing manually, nothing more.
+    It has two properties bed_time and wake_up_time. Both of these properties are of type datetime.
+    Calling check_suspicious_activity  with time  set to something wake_up_time  and bed_time results in creating level 3 alert, with the specified where  and what . Take a look in the camera implementation for inspiration.
+    Calling check_suspicious_activity  with time  set to something  bed_time and wake_up_time  throws an exception saying 'Neighbor asleep'.
+    datetime and datetime diffrence to be implemented for more robust feature"""
 
     def __init__(self, name, bed_time=1, wake_up_time=5):
         if name == "":
@@ -30,7 +30,7 @@ Calling check_suspicious_activity  with time  set to something  bed_time and wak
         return self.__name
 
     def check_suspicious_activity(self, where, what, datetime):
-        currentHour = (datetime.hour)
+        currentHour = datetime.hour
         if self.bed_time <= currentHour <= self.wake_up_time:
             raise Exception("Wellknown neighbor is sleeping")
         else:
