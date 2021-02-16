@@ -10,9 +10,9 @@ class Neighbor(AlertCreator):
 
     def checkSuspiciousActivity(self, where, what, time):
         currentHour = time.hour
-        print(self.wake_up_time)
-        print(self.bed_time)
-        print(currentHour)
+        # print(self.wake_up_time)
+        # print(self.bed_time)
+        # print(currentHour)
         if self.bed_time >= currentHour >= self.wake_up_time:
             self.create_alert(where, what, 3)
 
