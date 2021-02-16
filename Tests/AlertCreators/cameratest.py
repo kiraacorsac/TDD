@@ -43,11 +43,12 @@ class CameraTest(unittest.TestCase):
         self.connectedCamera.detect_movement("human", "outside", datetime(2020, 11, 26, 23, 20))
         create_alert_mock.assert_called_once_with("outside", "human", 3)
 
-    @patch.object(Camera, 'detect_movement')
+    #@patch.object(Camera, 'detect_movement')
+    @patch('builtins.print')
     def test_detectMovement_dayTimeNmodeon_standby(self, print_mock):
         self.connectedCamera.night_mode = True
         self.connectedCamera.detect_movement("human", "outside", datetime(2020, 11, 26, 13, 20))
-        print_mock.assert_called_once()
+        print_mock.assert_called_once_with("standing by")
 
     def test_detectMovement_unknownLocation_raise(self):
         with self.assertRaises(Exception):
