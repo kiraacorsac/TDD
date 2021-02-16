@@ -1,20 +1,26 @@
 import unittest
+from datetime import datetime
+from unittest.mock import patch
 from AlertCreators.camera import Camera
 from AlertHandlers.doggo import Doggo
 from security_system import SecuritySystem
 
 
 class Camera_SecuritySystem_DoggoTest(unittest.TestCase):
-    def test_cameraAlertCreated_doggoAlertHandled(self):
+    @patch("builtins.print")
+    def test_cameraAlertCreated_doggoAlertHandled(self, print_mock):
         # setup
 
         camera = Camera("Camera2", ["outside", "garage"])
-        doggo = Doggo("Tom")
+        doggo = Doggo("Jake")
         system = SecuritySystem()
 
         system.registerCreator(camera)
         system.registerHandler(doggo)
 
         # act
+        camera.detect_movement("human", "outside", datetime(2020, 11, 24, 13, 20))
 
         # assert
+
+        print_mock.assert_called_once_with("Jake: growl!")
