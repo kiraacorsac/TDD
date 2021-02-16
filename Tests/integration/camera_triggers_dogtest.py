@@ -4,7 +4,7 @@ from AlertHandlers.doggo import Doggo
 from security_system import SecuritySystem
 
 
-class Caemra_SecuritySystem_DoggoTest(unittest.TestCase):
+class Camera_SecuritySystem_DoggoTest(unittest.TestCase):
     def test_cameraAlertCreated_doggoAlertHandled(self):
         # setup
 
