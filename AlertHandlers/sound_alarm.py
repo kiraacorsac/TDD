@@ -1,4 +1,4 @@
-from TDD_Organized.AlertHandlers.alert_handler import AlertHandler
+from AlertHandlers.alert_handler import AlertHandler
 import winsound
 
 
