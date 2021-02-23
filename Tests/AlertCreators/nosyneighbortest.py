@@ -8,8 +8,8 @@ from security_system import SecuritySystem
 
 class NosyNeighborTest(unittest.TestCase):
     def setUp(self):
-        self.bedtime = datetime(2021, 1, 24, 23, 30)
-        self.waketime = datetime(2021, 1, 25, 6, 30)
+        self.bedtime = "23:30"
+        self.waketime = "05:30"
         self.wellknown_neighbor = NosyNeighbor("Felix", self.bedtime, self.waketime)
 
         system = SecuritySystem()
@@ -47,7 +47,7 @@ class NosyNeighborTest(unittest.TestCase):
     @patch.object(NosyNeighbor, "create_alert")
     def test_checkSuspiciousActivity_WakeUpHour_createAlert(self, create_alert_mock):
         self.wellknown_neighbor.check_suspicious_activity(
-            "infront of the door", "random visitors", datetime(2021, 1, 25, 13, 30)
+            "infront of the door", "random visitors", datetime(2021, 1, 25, 13, 30, 10)
         )
         create_alert_mock.assert_called_once_with(
             "infront of the door", "random visitors", 3
@@ -56,7 +56,9 @@ class NosyNeighborTest(unittest.TestCase):
     def test_checkSuspiciousActivity_SleepHour_raiseException(self):
         with self.assertRaises(Exception):
             self.wellknown_neighbor.check_suspicious_activity(
-                "infront of the door", "random visitors", datetime(2021, 1, 25, 2, 30)
+                "infront of the door",
+                "random visitors",
+                datetime(2021, 1, 25, 2, 30, 20),
             )
 
 

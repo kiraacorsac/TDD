@@ -29,9 +29,18 @@ class NosyNeighbor(AlertCreator):
     def name(self):
         return self.__name
 
+    def time_check(self, currentTime, time_range):
+        if time_range[1] < time_range[0]:
+            return currentTime >= time_range[0] or currentTime <= time_range[1]
+        return time_range[0] <= currentTime <= time_range[1]
+
     def check_suspicious_activity(self, where, what, datetime):
-        self.currentHour = datetime
-        if self.bed_time <= self.currentHour <= self.wake_up_time:
+        self.currentHour = datetime.strftime("%H:%M")
+        print(self.bed_time, self.currentHour, self.wake_up_time)
+        checkHour = self.time_check(
+            self.currentHour, (self.bed_time, self.wake_up_time)
+        )
+        if checkHour is True:
             raise Exception("Wellknown neighbor is sleeping")
         else:
             self.create_alert(where, what, 3)
