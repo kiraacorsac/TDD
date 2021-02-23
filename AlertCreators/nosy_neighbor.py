@@ -1,5 +1,5 @@
 from AlertCreators.alert_creator import AlertCreator
-import datetime
+from datetime import datetime, time
 import re
 
 
@@ -14,7 +14,7 @@ class NosyNeighbor(AlertCreator):
     Calling check_suspicious_activity  with time  set to something  bed_time and wake_up_time  throws an exception saying 'Neighbor asleep'.
     datetime and datetime diffrence to be implemented for more robust feature"""
 
-    def __init__(self, name, bed_time=1, wake_up_time=5):
+    def __init__(self, name, bed_time, wake_up_time):
         if name == "":
             raise ValueError("Should not be empty")
         if re.search("[^A-Za-z. ]", name):
@@ -30,8 +30,8 @@ class NosyNeighbor(AlertCreator):
         return self.__name
 
     def check_suspicious_activity(self, where, what, datetime):
-        currentHour = datetime.hour
-        if self.bed_time <= currentHour <= self.wake_up_time:
+        self.currentHour = datetime
+        if self.bed_time <= self.currentHour <= self.wake_up_time:
             raise Exception("Wellknown neighbor is sleeping")
         else:
             self.create_alert(where, what, 3)
