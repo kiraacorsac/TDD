@@ -9,8 +9,10 @@ from security_system import SecuritySystem
 class NosyNeighborTest(unittest.TestCase):
     def setUp(self):
         self.bedtime = "23:30"
+        self.weirdbedtime = "01:30"
         self.waketime = "05:30"
         self.wellknown_neighbor = NosyNeighbor("Felix", self.bedtime, self.waketime)
+        self.grumpy_neighbor = NosyNeighbor("Filip", self.weirdbedtime, self.waketime)
 
         system = SecuritySystem()
         self.wellknown_neighbor.security_system = system
@@ -56,6 +58,14 @@ class NosyNeighborTest(unittest.TestCase):
     def test_checkSuspiciousActivity_SleepHour_raiseException(self):
         with self.assertRaises(Exception):
             self.wellknown_neighbor.check_suspicious_activity(
+                "infront of the door",
+                "random visitors",
+                datetime(2021, 1, 25, 2, 30, 20),
+            )
+
+    def test_checkSuspiciousActivity_WeirdSleepHour_raiseException(self):
+        with self.assertRaises(Exception):
+            self.grumpy_neighbor.check_suspicious_activity(
                 "infront of the door",
                 "random visitors",
                 datetime(2021, 1, 25, 2, 30, 20),
