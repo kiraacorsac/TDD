@@ -63,13 +63,24 @@ class NosyNeighborTest(unittest.TestCase):
                 datetime(2021, 1, 25, 2, 30, 20),
             )
 
-    def test_checkSuspiciousActivity_WeirdSleepHour_raiseException(self):
+    def test_checkSuspiciousActivity_WeirdSleepHourSleeping_raiseException(self):
         with self.assertRaises(Exception):
             self.grumpy_neighbor.check_suspicious_activity(
                 "infront of the door",
                 "random visitors",
                 datetime(2021, 1, 25, 2, 30, 20),
             )
+
+    @patch.object(NosyNeighbor, "create_alert")
+    def test_checkSuspiciousActivity_WeirdSleepHourAwake_createAlert(
+        self, create_alert_mock
+    ):
+        self.grumpy_neighbor.check_suspicious_activity(
+            "infront of the door", "random visitors", datetime(2021, 1, 25, 13, 30, 10)
+        )
+        create_alert_mock.assert_called_once_with(
+            "infront of the door", "random visitors", 3
+        )
 
 
 if __name__ == "__main__":
