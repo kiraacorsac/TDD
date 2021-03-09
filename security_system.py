@@ -16,6 +16,8 @@ class SecuritySystem:
   def createAlert(self, where, what, level):
     alert = Alert(where, what, level)
 
+    # strategy.alert_dispatch()
+
     for handler in self.handlers:
       handler.handle_alert(alert)
 
