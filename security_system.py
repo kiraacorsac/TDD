@@ -6,6 +6,7 @@ class SecuritySystem:
   def __init__(self):
     self.handlers = []
     self.creators = []
+    self.strategy = None
 
   def registerHandler(self, handler):
     if not isinstance(handler, AlertHandler):
@@ -15,11 +16,10 @@ class SecuritySystem:
 
   def createAlert(self, where, what, level):
     alert = Alert(where, what, level)
+    self.strategy.alert_dispatch(alert, self.handlers)
 
     # strategy.alert_dispatch()
 
-    for handler in self.handlers:
-      handler.handle_alert(alert)
 
   def registerCreator(self, creator):
     if not isinstance(creator, AlertCreator):

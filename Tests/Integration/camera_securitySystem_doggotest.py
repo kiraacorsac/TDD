@@ -4,6 +4,7 @@ from unittest.mock import patch
 from AlertCreators.camera import Camera
 from AlertHandlers.doggo import Doggo
 from security_system import SecuritySystem
+from SecuritySystemStrategies.everybody_strategy import EverybodyStrategy
 
 class Camera_SecuritySystem_DoggoTest(unittest.TestCase):
   
@@ -14,6 +15,7 @@ class Camera_SecuritySystem_DoggoTest(unittest.TestCase):
     camera = Camera("Camera1", ["outside", "garage"])
     doggo = Doggo("Jake")
     system = SecuritySystem()
+    system.strategy = EverybodyStrategy()
 
     system.registerCreator(camera)
     system.registerHandler(doggo)
@@ -34,6 +36,8 @@ class Camera_SecuritySystem_DoggoTest(unittest.TestCase):
     camera = Camera("Camera1", ["outside", "garage"])
     doggo = Doggo("Jake")
     system = SecuritySystem()
+    system.strategy = EverybodyStrategy()
+
 
     system.registerCreator(camera)
     system.registerHandler(doggo)

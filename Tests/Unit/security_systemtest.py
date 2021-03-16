@@ -20,13 +20,14 @@ class SecuritySystemTest(unittest.TestCase):
 
 
 
-  @patch.object(Doggo, "handle_alert")
-  def test_alertCreated_doggoRegistred_doggoHandleAlert(self, handle_alert_mock):
-    doggo = Doggo("Jake")
-    self.security.registerHandler(doggo)
-    self.security.createAlert("outside", "human", 3)
-    handle_alert_mock.assert_called_once()
-    
+  # @patch.object(Doggo, "handle_alert")
+  # def test_alertCreated_doggoRegistred_doggoHandleAlert(self, handle_alert_mock):
+  #   doggo = Doggo("Jake")
+  #   self.security.registerHandler(doggo)
+  #   self.security.createAlert("outside", "human", 3)
+  #   handle_alert_mock.assert_called_once()
+
+  # TODO test wheter security system calls strategy using manually made mocks
 
 
   def test_registerCreator_camera_isInCreator(self):

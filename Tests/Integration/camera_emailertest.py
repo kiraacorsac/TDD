@@ -5,6 +5,7 @@ from AlertCreators.camera import Camera
 from AlertHandlers.emailer import Emailer
 from security_system import SecuritySystem
 from unittest.mock import patch
+from SecuritySystemStrategies.everybody_strategy import EverybodyStrategy
 
 class Camera_EmailerTest(unittest.TestCase):
   
@@ -16,6 +17,8 @@ class Camera_EmailerTest(unittest.TestCase):
     emailer = Emailer("filip@example.com")
     emailer.alert_recipient = "quentin@example.com"
     system = SecuritySystem()
+    system.strategy = EverybodyStrategy()
+
 
     system.registerCreator(camera)
     system.registerHandler(emailer)
