@@ -6,7 +6,11 @@ from alert import Alert
 
 
 class EverybodyStrategyTest(unittest.TestCase):
-    def test_alertDispatch_2handlers_handleAlertCalled2Times(self):
+    @patch.object(Doggo, "handle_alert")
+    @patch.object(SoundAlarm, "handle_alert")
+    def test_alertDispatch_2handlers_handleAlertCalled2Times(
+        self, handle_alert_Doggo_mock, handle_alert_SoundAlarm_mock
+    ):
         # set up
         self.strategy = EverybodyStrategy()
         self.handlers = [Doggo("Jake"), SoundAlarm()]
@@ -17,8 +21,5 @@ class EverybodyStrategyTest(unittest.TestCase):
 
         # assert
 
-    @patch.object(EverybodyStrategy, "alert_dispatch")
-    def test_strategy_alertDispatched(self, alert_disptach_mock):
-
-        self.strategy.alert_dispatch(self.alert)
-        alert_dispatch_mock.assert_called_once()
+        handle_alert_Doggo_mock.assert_called_once()
+        handle_alert_SoundAlarm_mock.assert_called_once()
