@@ -9,5 +9,5 @@ from SecuritySystemStrategies.security_system_strategy import SecuritySystemStra
 
 class OldestFirstStrategy(SecuritySystemStrategy):
     def alert_dispatch(self, alert, handlers):
-        print(handlers[0], handlers[1])
+        # print(handlers[0], handlers[1])
         handlers[0].handle_alert(alert)
