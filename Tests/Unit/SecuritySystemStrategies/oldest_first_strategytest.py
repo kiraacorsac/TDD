@@ -8,8 +8,9 @@ from SecuritySystemStrategies.oldest_first_strategy import OldestFirstStrategy
 
 class OldestFirstStrategyTest(unittest.TestCase):
     @patch.object(Doggo, "handle_alert")
+    @patch.object(SoundAlarm, "handle_alert")
     def test_alertDispatch_2handlers_firstHandlerCalledOnly(
-        self, handle_alert_Doggo_mock
+        self, handle_alert_SoundAlarm_mock, handle_alert_Doggo_mock
     ):
         # set up
         strategy = OldestFirstStrategy()
@@ -23,9 +24,10 @@ class OldestFirstStrategyTest(unittest.TestCase):
 
         handle_alert_Doggo_mock.assert_called()
 
+    @patch.object(Doggo, "handle_alert")
     @patch.object(SoundAlarm, "handle_alert")
     def test_alertDispatch_2handlers_secondHandlerNotCalled(
-        self, handle_alert_SoundAlarm_mock
+        self, handle_alert_SoundAlarm_mock, handle_alert_Doggo_mock
     ):
         # set up
         strategy = OldestFirstStrategy()
