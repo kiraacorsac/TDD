@@ -36,7 +36,7 @@ class NosyNeighbor(AlertCreator):
 
     def check_suspicious_activity(self, where, what, datetime):
         self.currentHour = datetime.strftime("%H:%M")
-        print(self.bed_time, self.currentHour, self.wake_up_time)
+        # print(self.bed_time, self.currentHour, self.wake_up_time)
         checkHour = self.time_check(
             self.currentHour, (self.bed_time, self.wake_up_time)
         )

@@ -14,14 +14,12 @@ class OldestFirstStrategyTest(unittest.TestCase):
     ):
         # set up
         strategy = OldestFirstStrategy()
-        alert = Alert("outside", "human", 2)   
+        alert = Alert("outside", "human", 2)
         handlers = [Doggo("Jake"), SoundAlarm()]
-
 
         # act
         strategy.alert_dispatch(alert, handlers)
 
         # assert
         handle_alert_SoundAlarm_mock.assert_not_called()
-        handle_alert_Doggo_mock.assert_called_once()
-  
+        handle_alert_Doggo_mock.assert_called()
