@@ -38,4 +38,4 @@ class NosyNeighbor_SecuritySystem(unittest.TestCase):
 
         # assert
         print_mock.assert_called()
-        # bip_mock.assert_called()
+        bip_mock.assert_not_called()
