@@ -1,7 +1,7 @@
 import unittest
 from AlertHandlers.doggo import Doggo
 from alert import Alert
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 class DoggoTest(unittest.TestCase):
 
@@ -65,14 +65,26 @@ class DoggoTest(unittest.TestCase):
 
   @patch.object(Doggo, 'bark')
   def test_handleAlert_outsideCat1_bark10times(self, bark_mock):
-    alert = Alert("outside", "cat", 1)
-    self.simple_doggo.handle_alert(alert)
+    #alert = Alert("outside", "cat", 1)
+
+    alert_mock = Mock(name="alert_mock")
+    alert_mock.where = "outside"
+    alert_mock.what = "cat"
+    alert_mock.level = 1
+
+    self.simple_doggo.handle_alert(alert_mock)
     self.assertEqual(bark_mock.call_count, 10)
 
   @patch.object(Doggo, 'growl')
   def test_handleAlert_outsideHuman1_growl(self, growl_mock):
-    alert = Alert("outside", "human", 1)
-    self.simple_doggo.handle_alert(alert)
+    # alert = Alert("outside", "human", 1)
+
+    alert_mock = Mock(name="alert_mock")
+    alert_mock.where = "outside"
+    alert_mock.what = "human"
+    alert_mock.level = 1
+    
+    self.simple_doggo.handle_alert(alert_mock)
     growl_mock.assert_called_once()
 
   @patch.object(Doggo, "bark")
