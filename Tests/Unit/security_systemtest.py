@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import patch, Mock
 from AlertHandlers.doggo import Doggo
+from AlertHandlers.alert_handler import AlertHandler
 from AlertCreators.camera import Camera
 from security_system import SecuritySystem
 
@@ -9,10 +10,10 @@ class SecuritySystemTest(unittest.TestCase):
   def setUp(self):
     self.security = SecuritySystem()
 
-  def test_registerHandler_doggo_isInHandlers(self):
-    doggo = Doggo("Jake")
-    self.security.registerHandler(doggo)
-    self.assertIn(doggo, self.security.handlers)
+  def test_registerHandler_handler_isInHandlers(self):
+    handler_mock = Mock(name="handler", spec=AlertHandler)
+    self.security.registerHandler(handler_mock)
+    self.assertIn(handler_mock, self.security.handlers)
   
   def test_registerHandler_integer_raisesTypeError(self):
     with self.assertRaises(TypeError):
