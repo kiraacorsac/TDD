@@ -8,15 +8,21 @@ from SecuritySystemStrategies.random_strategy import RandomStrategy
 
 class RandomStrategyTest(unittest.TestCase):
   
-  @patch.object(Doggo, "handle_alert")
-  @patch.object(SoundAlarm, "handle_alert")
-  def test_alertDispatch_random(self, handle_alert_SoundAlarm_mock, handle_alert_Doggo_mock):
+  def test_alertDispatch_random(self):
         random.seed(0)
         strategy = RandomStrategy()
-        alert = Alert("outside", "human", 2)   
-        handlers = [Doggo("Jake"), SoundAlarm()]
+        handlers = [
+          Mock(name="Doggo"),
+          Mock(name="SoundAlarm")
+        ]
 
-        strategy.alert_dispatch(alert, handlers)
+        alert_mock = Mock(name="alert")
+        alert_mock.where = "outside"
+        alert_mock.what = "human"
+        alert_mock.level = 2
 
-        handle_alert_SoundAlarm_mock.assert_called_once()
-        handle_alert_Doggo_mock.assert_not_called()
+        strategy.alert_dispatch(alert_mock, handlers)
+
+        handlers[0].handle_alert.assert_not_called()
+        handlers[1].handle_alert.assert_called_once_with(alert_mock)
+

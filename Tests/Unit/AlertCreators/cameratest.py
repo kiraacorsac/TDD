@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 from datetime import datetime
 from AlertCreators.camera import Camera
@@ -12,8 +12,8 @@ class CameraTest(unittest.TestCase):
         self.camera = Camera("Camera1", ["backyard", "outside"])
 
         self.connectedCamera = Camera("Camera2", ["backyard", "outside"])
-        system = SecuritySystem()  
-        self.connectedCamera.security_system = system
+        self.system = Mock(name="SecuritySystem") 
+        self.connectedCamera.security_system = self.system
 
         
 
@@ -21,15 +21,17 @@ class CameraTest(unittest.TestCase):
         # setUp
         # set up everything you need to run the test
 
-        system = SecuritySystem()  
-        self.camera.security_system = system
+        self.camera.security_system = self.system
 
         self.assertTrue(self.camera.is_connected())
 
-    @patch.object(SecuritySystem, 'createAlert')
-    def test_createAlert_humanOutside2_systemCreateAlert(self, system_create_alert_mock):
+    # @patch.object(SecuritySystem, 'createAlert')
+    def test_createAlert_humanOutside2_systemCreateAlert(self):
+        #setup
+        #act
         self.connectedCamera.create_alert("outside", "human", 2)
-        system_create_alert_mock.assert_called_once()
+        #assert
+        self.system.createAlert.assert_called_once()
 
     @patch.object(Camera, 'create_alert')
     def test_detectMovement_connected_createAlert(self, create_alert_mock):
