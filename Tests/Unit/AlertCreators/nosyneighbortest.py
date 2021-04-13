@@ -1,7 +1,7 @@
 import unittest
 from AlertCreators.nosy_neighbor import NosyNeighbor
 from alert import Alert
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 from datetime import datetime, time
 from security_system import SecuritySystem
 
@@ -14,12 +14,12 @@ class NosyNeighborTest(unittest.TestCase):
         self.wellknown_neighbor = NosyNeighbor("Felix", self.bedtime, self.waketime)
         self.grumpy_neighbor = NosyNeighbor("Filip", self.weirdbedtime, self.waketime)
 
-        system = SecuritySystem()
-        self.wellknown_neighbor.security_system = system
+        self.system = Mock(name="SecuritySystem")
+        self.wellknown_neighbor.security_system = self.system
 
     def test_isConnected_securitySystemNotNone_true(self):
-        system = SecuritySystem()
-        self.wellknown_neighbor.security_system = system
+        # self.system = SecuritySystem()
+        self.wellknown_neighbor.security_system = self.system
         self.assertTrue(self.wellknown_neighbor.is_connected())
 
     def test_neighbourName_nameSet_returnsName(self):
@@ -37,14 +37,12 @@ class NosyNeighborTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             wellknown_neighbor = NosyNeighbor("@", self.bedtime, self.waketime)
 
-    @patch.object(SecuritySystem, "createAlert")
-    def test_createAlert_visitorInFrontOfTheDoor_systemCreateAlert(
-        self, system_create_alert_mock
-    ):
+    # @patch.object(SecuritySystem, "createAlert")
+    def test_createAlert_visitorInFrontOfTheDoor_systemCreateAlert(self):
         self.wellknown_neighbor.create_alert(
             "infront of the door", "random visitors", 2
         )
-        system_create_alert_mock.assert_called_once()
+        self.system.createAlert.assert_called_once()
 
     @patch.object(NosyNeighbor, "create_alert")
     def test_checkSuspiciousActivity_WakeUpHour_createAlert(self, create_alert_mock):
