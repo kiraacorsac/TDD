@@ -7,13 +7,11 @@ from SecuritySystemStrategies.oldest_first_strategy import OldestFirstStrategy
 
 
 class OldestFirstStrategyTest(unittest.TestCase):
-#    @patch.object(Doggo, "handle_alert")
-#    @patch.object(SoundAlarm, "handle_alert")
+
     def test_alertDispatch_oldestFirst(self):
         # set up
         strategy = OldestFirstStrategy()
-  #      alert = Alert("outside", "human", 2)
-  #      handlers = [Doggo("Jake"), SoundAlarm()]
+
 
         handlers = [
             Mock(name="Doggo"),
